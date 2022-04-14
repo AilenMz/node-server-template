@@ -20,7 +20,7 @@ const UsuarioSchema = new Schema({
     rol:{
         type: String,
         required: true,
-        enum: ['ADMIN', 'USER']
+        enum: ['ADMIN', 'USER', 'VENTAS']
     },
     estado:{
         type: Boolean,
@@ -31,5 +31,10 @@ const UsuarioSchema = new Schema({
         default: false
     },
 })
+
+UsuarioSchema.methods.toJSON = function(){
+    const {__v, password, ...usuario} = this.toObject()
+    return usuario
+}
 
 module.exports= model('Usuario', UsuarioSchema)
